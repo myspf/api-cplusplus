@@ -1,23 +1,29 @@
 # DolphinDB C++ API
-本教程介绍了在linux环境下，如何使用DolphinDB提供的C++ API进行应用开发。主要包括以下内容：
-* 工程编译  
+DolphinDB C++ API提供了以下三种开发环境:
+* Linux
+* Windows Visual Stdio
+* Windows gnu
+
+本教程主要包括以下内容：
+* Linux 开发环境工程编译  
+* Windows Visual Stdio 开发环境工程编译
 * 执行DolphinDB Script  
 * 调用内置函数  
 * 上传本地对象到Server  
 * 数据表添加数据  
 
-### 1、环境需求
+### 1 Linux 开发环境工程编译
+#### 1.1 安装前准备
 * linux 编程环境；  
 * g++ 6.2编译器；（由于libDolphinDBAPI.so是由g++6.2编译的，为了保证ABI兼容，建议使用该版本的编译器）
 
-### 2、编译工程
-#### 2.1 下载bin文件和头文件
+#### 1.2 下载bin文件和头文件
 下载api-cplusplus，包括bin和include文件夹，如下：
 
 > bin (libDolphinDBAPI.so)  
   include (DolphinDB.h  Exceptions.h  SmartPointer.h  SysIO.h  Types.h  Util.h) 
   
-#### 2.2 编写main.cpp文件
+#### 1.3 编写main.cpp文件
 在与bin和include平级目录创建目录project，进入project并创建文件main.cpp，内容如下：
 ```
 #include "DolphinDB.h"
@@ -42,14 +48,17 @@ int main(int argc, char *argv[]){
 }
 ```
 
-#### 2.3 编译
+#### 1.4 编译
 g++ 编译命令如下：
 > g++ main.cpp -std=c++11 -DLINUX -DLOGGING_LEVEL_2 -O2 -I../include -lDolphinDBAPI -lssl  -lpthread -luuid -L../bin  -Wl,-rpath ../bin/ -o main
 
-#### 2.4 运行
+#### 1.5 运行
 运行main之前，需要启动DolphinDB Server，本例中连接到IP为192.168.1.25，端口为8503的DolphinDB Server。然后运行main程序，成功连接到DolphinDB Server。
 
-### 3、执行DolphinDB Script
+### 2 Windows Visual Stdio 开发环境工程编译
+#### 2.1
+
+### 3 执行DolphinDB Script
 #### 3.1 创建连接
 C++ API通过TCP/IP连接DolphinDB Server，connect方法通过ip和port两个参数来连接，代码如下：
 ```
@@ -149,7 +158,7 @@ cout<<v->getString()<<endl;
 
 输出Int类型Vector：[1,3,5]。
 
-### 4、调用DolphinDB内置函数
+### 4 调用DolphinDB内置函数
 DolphinDB C++ API提供了在C++层面调用DolphinDB内置函数的接口，代码如下：
 ```
 vector<ConstantSP> args;
@@ -164,7 +173,7 @@ cout<<result->getString()<<endl;
 run方法返回sum函数的结果，sum函数接受一个Double类型的Vector，通过Util::createVector(DT_DOUBLE, 3)来创建Double Vector；
 run方法的第一个参数为string类型的函数名，第二个参数为ConstantSP类型的vector（Constant类为DolphinDB中所有类型的基类），sum输出为Double类型。
 
-### 5、上传本地对象到DolphinDB Server
+### 5 上传本地对象到DolphinDB Server
 通过C++ API可以把本地的对象上传到DolphinDB Server中，下面用例先在本地创建table对象，然后上传到Server，再从Server中获取该对象，完整代码如下：
 ```
 //本地创建table对象，包含3列
@@ -194,7 +203,7 @@ cout<<result->getString()<<endl;
 ```
 C++ API提供了在本地灵活的创建各种对象的接口，利用 __upload__ 方法，可以方便的实现本地对象和Server对象的转换交互。
 
-### 6、数据表添加数据
+### 6 数据表添加数据
 利用C++ API可以方便的将第三方系统业务数据添加到DolphinDB数据表中。DolphinDB支持三种类型的表， __内存表__ 、 __本地磁盘表__ 及 __分布式表__ 。下面介绍如何利用Ｃ++ API将模拟的业务数据保存到不同类型的表中。  
 
 #### 6.1 内存表
