@@ -72,6 +72,7 @@ g++ 编译命令如下：
 #### 2.4 编译执行
 启动编译，把libDolphinDBAPI.dll拷贝到可执行程序输出目录，执行编译出的可执行程序。
 
+Windows gnu开发环境与Linux类似，可参考Linux下工程编译。
 
 ### 3 执行DolphinDB Script
 #### 3.1 创建连接
