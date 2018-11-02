@@ -13,7 +13,7 @@ DolphinDB C++ API提供了以下三种开发环境:
 * 数据表添加数据  
 
 ### 1 Linux 开发环境工程编译
-#### 1.1 安装前准备
+#### 1.1 环境需求
 * linux 编程环境；  
 * g++ 6.2编译器；（由于libDolphinDBAPI.so是由g++6.2编译的，为了保证ABI兼容，建议使用该版本的编译器）
 
@@ -56,7 +56,22 @@ g++ 编译命令如下：
 运行main之前，需要启动DolphinDB Server，本例中连接到IP为192.168.1.25，端口为8503的DolphinDB Server。然后运行main程序，成功连接到DolphinDB Server。
 
 ### 2 Windows Visual Stdio 开发环境工程编译
-#### 2.1
+#### 2.1 环境需求
+本教程用例在Visual Stdio 2017 下测试通过，建议用户使用该版本。
+注意：只支持 __x64__ 位，因此需要将工程配置为x64。
+
+#### 2.2 下载库文件和头文件
+下载api-cplusplus，包括库文件libDolphinDBAPI.lib和libDolphinDBAPI.dll，以及头文件。
+
+#### 2.3 创建VS工程
+创建win32控制台程序，并导入头文件；
+编写cpp文件（如上）；
+导入libDolphinDBAPI.lib，并配置附加库目录为该lib的目录；
+注意：由于VS里默认定义了min/max两个宏，与头文件中min、max函数冲突，为了解决这个问题。在预处理宏定义中需要加入 __NOMINMAX__ ；
+
+#### 2.4 编译执行
+启动编译，把libDolphinDBAPI.dll拷贝到可执行程序输出目录，执行编译出的可执行程序。
+
 
 ### 3 执行DolphinDB Script
 #### 3.1 创建连接
